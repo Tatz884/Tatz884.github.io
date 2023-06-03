@@ -1,9 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello World!</title>
+    <title>Currency Exchange Rate</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <h1>JPY/USD Exchange Rate:</h1>
+    <div id="exchange-rate"></div>
+
+    <script>
+        $(document).ready(function () {
+            // Make an AJAX request to the API endpint
+            $.ajax({
+                url: 'https://api.exchangerate-api.com/v4/latest/JPY',
+                type: 'GET',
+                success: function (data) {
+                    // Retrieve the JPY/USD exchange rate
+                    var exchangeRate = data.rates.USD.toFixed(2);
+
+                    // Update the HTML with the exchange rate
+                    $('#exchange-rate').text(exchangeRate);
+                },
+                error: function() {
+                    // Display an error message if the API request fails
+                    $('#exchange-rate').text('Failed to fetch exchange rate.');
+                }
+            })
+        })
+    </script>
 </body>
 </html>
