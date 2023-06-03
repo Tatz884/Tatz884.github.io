@@ -16,7 +16,7 @@
                 type: 'GET',
                 success: function (data) {
                     // Retrieve the JPY/USD exchange rate
-                    var exchangeRate = data.rates.USD.toFixed(2);
+                    var exchangeRate = data.rates.USD.toFixed(10);
 
                     // Update the HTML with the exchange rate
                     $('#exchange-rate').text(exchangeRate);
