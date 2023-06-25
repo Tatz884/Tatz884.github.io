@@ -29,6 +29,13 @@ function validateInput() {
         return false
     }
 
+    // check if input does not contain any characters
+    const regex = /[A-Za-z0-9]+/;
+    if (!regex.test(input.value)) {
+        errorType = "non-letter"
+        return false
+    }
+
     // check if form matches the existing tasks (i.e. creating task duplicates)
     for (var i = 0; i < localStorage.length; i++) {
         if (localStorage.getItem(localStorage.key(i)) === input.value) {
@@ -43,9 +50,11 @@ function validateInput() {
 function showError() {
     if (errorType === "empty") {
         errorText.textContent = "Empty tasks are not allowed"
+    } else if (errorType === "non-letter") {
+        errorText.textContent = "Tasks require at least one alphabet or number"
     } else if (errorType === "duplicate") {
         errorText.textContent = "Duplicated tasks are not allowed"
-    }
+    } 
     errorText.className = 'error';
 }
 
