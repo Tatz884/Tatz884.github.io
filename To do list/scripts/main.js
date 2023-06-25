@@ -12,7 +12,6 @@ addBtn.addEventListener("click", () => {
   
 })
 
-
 clearAllBtn.addEventListener("click", () => {
     const currStorageLength = localStorage.length
     // clean all displayed tasks:
@@ -39,7 +38,6 @@ function storeData(currText) {
     // Since the console.log above is executed only once, storeData triggering seems to be fine.
     // I am not sure if it is a problem of the localStorage.setItem or something related to
     // asynchronation of javascript?.
-    
 
 }
 
