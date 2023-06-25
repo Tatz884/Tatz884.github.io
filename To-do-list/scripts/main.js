@@ -2,15 +2,53 @@ const unordList = document.querySelector("ul");
 const input = document.querySelector("input");
 const addBtn = document.querySelector("#add");
 const clearAllBtn = document.querySelector("#clear-all")
+const errorText = document.querySelector('#error-text')
+
+let errorType = ""
 
 addBtn.addEventListener("click", () => {
-
+    errorText.textContent = "";
+    errorText.className = "";
     const currText = input.value
-    storeData(currText);
+    if (validateInput()) {
+        storeData(currText);
+        displayTasks();
+    } else {
+        showError();
+    }
     input.value = '';
-    displayTasks();
-  
+    input.focus()
 })
+
+
+
+function validateInput() {
+    // check if form is empty
+    if (input.value === '') {
+        errorType = "empty"
+        return false
+    }
+
+    // check if form matches the existing tasks (i.e. creating task duplicates)
+    for (var i = 0; i < localStorage.length; i++) {
+        if (localStorage.getItem(localStorage.key(i)) === input.value) {
+            errorType = "duplicate"
+            return false
+        }
+    }
+    
+    return true
+}
+
+function showError() {
+    if (errorType === "empty") {
+        errorText.textContent = "Empty tasks are not allowed"
+    } else if (errorType === "duplicate") {
+        errorText.textContent = "Duplicated tasks are not allowed"
+    }
+    errorText.className = 'error';
+}
+
 
 clearAllBtn.addEventListener("click", () => {
     const currStorageLength = localStorage.length
@@ -31,6 +69,10 @@ function storeData(currText) {
     var d=new Date();
     var timestamp = d.getTime();
     localStorage.setItem(`${timestamp}`, `${currText}`);
+    // for example, localStorage should look like:
+    // {111111111: "a", 111111113: "b"}
+
+
     // Note about this code:
     // Somehow localStorage[`${localStorage.length}`] = currText or
     // localStorage.setItem(localStorage.length) = currText will be executed multiple times and
