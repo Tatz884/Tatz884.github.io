@@ -10,6 +10,7 @@ origins = [
     "http://localhost",
     "http://localhost:8000",
     "http://localhost:8080",
+    "http://localhost:8080/*",
     "https://example.org"
 ]
 
@@ -23,4 +24,4 @@ app.add_middleware(
 
 
 app.include_router(task.router)
-app.include_router(done.router)
+# app.include_router(done.router)

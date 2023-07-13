@@ -3,28 +3,32 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link href="frontend/styles/style.css", rel="stylesheet" />
+    <link href="frontend/styles/output.css", rel="stylesheet" />
     
     <title>A simple To-Do list</title>
   </head>
   <body>
 
-    <h1>My To-Do list</h1>
-
-    <div>
-      <label for="item">Enter a new task:</label>
-      <input type="text" name="task" id="task" />
-      <button id="add">Add item</button>
+    <!-- <h1 class="text-red">My To-Do list</h1> -->
+    <div class="flex-initial grow-0 bg-red rounded items-center justify-center w-full p-6 m-4 lg:w-3/4 lg:max-w-lg">
+      <div class="flex grow-0 flex-row mt-4">
+        <input placeholder="Write a task" class="w-full flex-initial grow-0 shadow appearance-none border rounded p-0 m-2 text-grey-darker" type="text" name="task" id="task" />
+        <button class="flex-no-shrink m-2 border-2 rounded text-teal-600 border-teal-300 hover:text-white hover:bg-teal-400 justify-self-end whitespace-nowrap active:bg-teal-600 focus:ring focus:ring-teal-300" id="add">Add item</button>
+      </div>  
       <span id="error-text" class="error" area-live="polite"></span>
+      
+      <ul>
+
+      </ul>
+
+      <section>
+        <button id="clear-all">Clear all</button>
+      </section>
     </div>
 
-    <ul>
 
-    </ul>
 
-    <section>
-      <button id="clear-all">Clear all</button>
-    </section>
+
     <script src="frontend/scripts/main.js"></script>
   </body>
 </html>

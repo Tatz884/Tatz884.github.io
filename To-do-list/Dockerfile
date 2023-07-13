@@ -1,5 +1,5 @@
 # install python 3.9 image
-FROM python:3.9-buster
+FROM python:3.11-slim-bookworm
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /src

@@ -1,6 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.engine import Result
+from sqlalchemy import text
 
 from typing import List, Tuple, Optional
 
@@ -34,7 +35,6 @@ async def create_task(
     return task
 
 
-
 async def get_tasks_with_done(db: AsyncSession) -> List[Tuple[int, str, bool]]:
     result: Result = await (
         db.execute(
@@ -50,4 +50,26 @@ async def get_tasks_with_done(db: AsyncSession) -> List[Tuple[int, str, bool]]:
 
 async def delete_task(db: AsyncSession, original: task_model.Task) -> None:
     await db.delete(original)
+    await db.commit()
+
+# strategy 1 loop
+# async def delete_all_tasks(db: AsyncSession) -> None:
+#     rows = await db.execute(select(task_model.Task))
+#     rows = rows.all()
+#     for row in rows:
+#         await db.delete(row)
+#     await db.commit()
+
+# strategy 2 where
+# async def delete_all_tasks(db: AsyncSession) -> None:    
+#     await db.execute(
+#         select(task_model.Task).where(task_model.Task.id==task_model.Task.id).delete()
+#         )
+#     db.commit()
+
+# strategy 3 that works
+async def delete_all_tasks(db: AsyncSession) -> None:    
+    with open("./backend/api/cruds/delete_all_tasks.sql") as file:
+        query = text(file.read())
+        await db.execute(query)
     await db.commit()
