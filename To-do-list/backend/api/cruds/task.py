@@ -9,35 +9,39 @@ import backend.api.models.task as task_model
 import backend.api.schemas.task as task_schema
 
 
-async def get_task(db: AsyncSession, task_id: int) -> Optional[task_model.Task]:
+async def get_task(db: AsyncSession, user_id: int, task_id: int) -> Optional[task_model.Task]:
     result: Result = await db.execute(
-        select(task_model.Task).filter(task_model.Task.id == task_id)
+        select(task_model.Task).filter(task_model.Task.user_id == user_id).filter(task_model.Task.id == task_id)
     )
     task: Optional[Tuple[task_model.Task]] = result.first()
-    return task[0] if task is not None else None  # 要素が一つであってもtupleで返却されるので１つ目の要素を取り出す
+    return task[0] if task is not None else None 
 
 async def update_task(
-    db: AsyncSession, task_create: task_schema.TaskCreate, original: task_model.Task
+    db: AsyncSession, user_id: int, task_create: task_schema.TaskCreate, original: task_model.Task
 ) -> task_model.Task:
     original.title = task_create.title
+    original.user_id = user_id
     db.add(original)
     await db.commit()
     await db.refresh(original)
     return original
 
 async def create_task(
-    db: AsyncSession, task_create: task_schema.TaskCreate
+    db: AsyncSession, user_id: int, task_create: task_schema.TaskCreate
 ) -> task_model.Task:
     task = task_model.Task(**task_create.dict())
+    task.user_id = user_id
     db.add(task)
     await db.commit()
     await db.refresh(task)
     return task
 
 
-async def get_tasks_with_done(db: AsyncSession) -> List[Tuple[int, str, bool]]:
+async def get_tasks_with_done(db: AsyncSession, user_id: int) -> List[Tuple[int, str, bool]]:
     result: Result = await (
         db.execute(
+            select(task_model.Task).
+            filter(task_model.Task.user_id == user_id).
             select(
                 task_model.Task.id,
                 task_model.Task.title,
@@ -48,8 +52,8 @@ async def get_tasks_with_done(db: AsyncSession) -> List[Tuple[int, str, bool]]:
     return result.all()
 
 
-async def delete_task(db: AsyncSession, original: task_model.Task) -> None:
-    await db.delete(original)
+async def delete_task(db: AsyncSession, user_id: int, original: task_model.Task) -> None:
+    await db.filter(task_model.Task.user_id == user_id).delete(original)
     await db.commit()
 
 # strategy 1 loop
@@ -68,7 +72,7 @@ async def delete_task(db: AsyncSession, original: task_model.Task) -> None:
 #     db.commit()
 
 # strategy 3 that works
-async def delete_all_tasks(db: AsyncSession) -> None:    
+async def delete_all_tasks(db: AsyncSession, user_id: int) -> None:    
     with open("./backend/api/cruds/delete_all_tasks.sql") as file:
         query = text(file.read())
         await db.execute(query)
