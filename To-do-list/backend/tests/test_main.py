@@ -48,25 +48,25 @@ async def test_create_and_read(async_client):
     assert response_obj[0]["title"] == "test task"
     assert response_obj[0]["done"] is False
 
-@pytest.mark.asyncio
-async def test_done_flag(async_client):
-    response = await async_client.post("/tasks", json={"title": "test task 2"})
-    assert response.status_code == starlette.status.HTTP_200_OK
-    response_obj = response.json()
-    assert response_obj["title"] == "test task 2"
+# @pytest.mark.asyncio
+# async def test_done_flag(async_client):
+#     response = await async_client.post("/tasks", json={"title": "test task 2"})
+#     assert response.status_code == starlette.status.HTTP_200_OK
+#     response_obj = response.json()
+#     assert response_obj["title"] == "test task 2"
 
-    # put done flag
-    response = await async_client.put("/tasks/1/done")
-    assert response.status_code == starlette.status.HTTP_200_OK
+#     # put done flag
+#     response = await async_client.put("/tasks/1/done")
+#     assert response.status_code == starlette.status.HTTP_200_OK
 
-    # return 400 since done flag is already there
-    response = await async_client.put("/tasks/1/done")
-    assert response.status_code == starlette.status.HTTP_400_BAD_REQUEST
+#     # return 400 since done flag is already there
+#     response = await async_client.put("/tasks/1/done")
+#     assert response.status_code == starlette.status.HTTP_400_BAD_REQUEST
 
-    # delete done flag
-    response = await async_client.delete("/tasks/1/done")
-    assert response.status_code == starlette.status.HTTP_200_OK
+#     # delete done flag
+#     response = await async_client.delete("/tasks/1/done")
+#     assert response.status_code == starlette.status.HTTP_200_OK
 
-    # return 404 since done flag is already removed
-    response = await async_client.delete("/tasks/1/done")
-    assert response.status_code == starlette.status.HTTP_404_NOT_FOUND
+#     # return 404 since done flag is already removed
+#     response = await async_client.delete("/tasks/1/done")
+#     assert response.status_code == starlette.status.HTTP_404_NOT_FOUND

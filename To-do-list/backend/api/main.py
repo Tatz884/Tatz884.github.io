@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from backend.api.routers import task, done
+from backend.api.routers import task, done, user
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -24,4 +24,5 @@ app.add_middleware(
 
 
 app.include_router(task.router)
+app.include_router(user.router)
 # app.include_router(done.router)

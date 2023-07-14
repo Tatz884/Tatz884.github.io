@@ -7,6 +7,11 @@ from backend.api.db import get_db
 router = APIRouter()
 
 
+# @router.get("/users/", response_model=list{user_schema.User})
+# async def list_tasks(db: AsyncSession = Depends(get_db)):
+#     return await task_crud.get_tasks_with_done(db)
+
+
 @router.get("/tasks", response_model=List[task_schema.Task])
 async def list_tasks(db: AsyncSession = Depends(get_db)):
     return await task_crud.get_tasks_with_done(db)
@@ -45,3 +50,5 @@ async def delete_all_tasks(db: AsyncSession = Depends(get_db)):
     #     raise HTTPException(status_code=404, detail="Task not found")
 
     return await task_crud.delete_all_tasks(db)
+
+
