@@ -27,7 +27,7 @@ async def get_user_by_key(db: AsyncSession, user_key: str) -> Optional[task_mode
     return user[0] if user is not None else None
 
 async def create_user(
-    db: AsyncSession, user_create: user_schema.UserCreate
+    db: AsyncSession, user_create: user_schema.UserCreateRead
 ) -> task_model.User:
     user = task_model.User(**user_create.dict())
     db.add(user)

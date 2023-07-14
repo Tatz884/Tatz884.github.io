@@ -7,7 +7,7 @@ from .task import Task
 class UserBase(BaseModel):
     pass
 
-class UserCreate(UserBase):
+class UserCreateRead(UserBase):
     user_key: str = Field("default_user_key", example="default_user_key")
     pass
 
