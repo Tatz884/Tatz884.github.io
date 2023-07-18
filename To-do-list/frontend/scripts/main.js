@@ -1,11 +1,13 @@
-const baseUrl = "http://127.0.0.1:8000/tasks";
+let rootUrl = "http://127.0.0.1:8000/";
 const unordList = document.querySelector("ul");
 const input = document.querySelector("input");
 const addBtn = document.querySelector("#add");
-const clearAllBtn = document.querySelector("#clear-all")
+// const clearAllBtn = document.querySelector("#clear-all")
 const errorText = document.querySelector('#error-text')
 
+let userkey = ""
 let errorType = ""
+
 
 addBtn.addEventListener("click", () => {
     errorText.textContent = "";
@@ -55,24 +57,24 @@ function showError() {
 }
 
 
-clearAllBtn.addEventListener("click", () => {
-    const currStorageLength = localStorage.length
-    // clean all displayed tasks:
-    clearAllDisplayedTasks();
-    // remove all tasks in localStorage
-    clearAllData(url = baseUrl)
-        .then(console.log(`All tasks successfully deleted`))
-})
+// clearAllBtn.addEventListener("click", () => {
+//     const currStorageLength = localStorage.length
+//     // clean all displayed tasks:
+//     clearAllDisplayedTasks();
+//     // remove all tasks in localStorage
+//     clearAllData(url = baseUrl)
+//         .then(console.log(`All tasks successfully deleted`))
+// })
 
-async function clearAllData(url = baseUrl)  {
-    const response = await fetch(url, {
-      method: 'DELETE', 
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    return response.json(); 
-  }
+// async function clearAllData(url = baseUrl)  {
+//     const response = await fetch(url, {
+//       method: 'DELETE', 
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     });
+//     return response.json(); 
+//   }
 
 async function createData(url = baseUrl, data = {"title":`buy clothing`}) {
     const response = await fetch(url, {
@@ -147,7 +149,6 @@ function clearAllDisplayedTasks() {
 function displayTasks() {
     // display all tasks currently stored in the web Storage API
     // clean all displayed tasks:
-
     
     clearAllDisplayedTasks()
 
@@ -156,11 +157,58 @@ function displayTasks() {
     listTasks()
         .then((tasks) => {
             console.log(tasks)
-            for (const task of tasks) {
-                showCreatedData(task);
+            if (tasks.length != 0) {
+                for (const task of tasks) {
+                    showCreatedData(task);
+                }
             }
         })
 
 }
 
-displayTasks()
+function initializeDisplay() {
+    if (localStorage.getItem("userkey") === null) {
+        localStorage.setItem("userkey", makeUserKey(16))
+        userkey = localStorage.getItem("userkey")
+        createUser(userkey)
+            .then((response) => {
+                console.log(console.log(`${response.url}: ${response.status}`))
+            })
+            .catch((error) => {
+                console.error(`Failed to fetch: ${error}`);
+              });
+    }
+    userkey = localStorage.getItem("userkey")
+    baseUrl = rootUrl + `users/${userkey}/tasks`
+    displayTasks()
+    
+}
+
+async function createUser(userkey) {
+    createUrl = rootUrl + `users`
+    const response = await fetch(createUrl, {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json',
+          "user_key": userkey
+          // 'Authorization': 'Bearer your-token' (if needed)
+        },
+        body: JSON.stringify(data) 
+      });
+      return response.json(); 
+}
+
+
+function makeUserKey(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
+
+initializeDisplay()

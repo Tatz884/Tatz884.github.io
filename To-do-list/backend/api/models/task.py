@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 
-from backend.api.db import Base
+from api.db import Base
 
 class User(Base):
     __tablename__ = "users"
@@ -17,7 +17,7 @@ class Task(Base):
     __tablename__ = "tasks"
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(1024))
-    user_id = Column(Integer, ForeignKey("users.id"), index=True)
+    user_key = Column(String(16), ForeignKey("users.user_key"))
     done = relationship("Done", back_populates="task", cascade="delete")
     user = relationship("User", back_populates="tasks")
 

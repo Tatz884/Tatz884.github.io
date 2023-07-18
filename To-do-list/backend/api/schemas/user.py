@@ -9,7 +9,9 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     user_key: str = Field("default_user_key", example="default_user_key")
-    pass
+    
+    class Config:
+        orm_mode = True
 
 class User(UserBase):
     id: int

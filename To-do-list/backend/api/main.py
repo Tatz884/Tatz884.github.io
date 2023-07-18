@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from backend.api.routers import task, done, user
+from api.routers import task, done, user
 
 from fastapi.middleware.cors import CORSMiddleware
 
