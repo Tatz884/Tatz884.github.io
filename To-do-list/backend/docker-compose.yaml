@@ -6,7 +6,7 @@ services:
       - .dockervenv:/src/.venv
       - .:/src
     ports:
-      - 8000:8000  # connect host port 8000 to docker port 8000
+      - 8080:8080  # connect host port 8000 to docker port 8000
   db:
     image: mysql:8.0
     platform: linux/x86_64  # necessary if M1 Mac

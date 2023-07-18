@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-ASYNC_DB_URL = "mysql+aiomysql://root@db:3306/database?charset=utf8"
+ASYNC_DB_URL = "mysql+aiomysql://FullStackToDoApp_knownpair:741a23bc1f5556ffb05fcfd2e722458ad9a66bcb@6-u.h.filess.io:3307/FullStackToDoApp_knownpair"
 
 async_engine = create_async_engine(ASYNC_DB_URL, echo=True)
 async_session = sessionmaker(

@@ -1,4 +1,4 @@
-let rootUrl = "http://127.0.0.1:8000/";
+let rootUrl = "https://fs-todo.fly.dev/";
 const unordList = document.querySelector("ul");
 const input = document.querySelector("input");
 const addBtn = document.querySelector("#add");
