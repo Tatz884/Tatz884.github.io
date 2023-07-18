@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
 
-from backend.api.models.task import Base
+from api.models.task import Base
 
-DB_URL = "mysql+pymysql://root@db:3306/demo?charset=utf8"
+DB_URL = "mysql+pymysql://FullStackToDoApp_knownpair:741a23bc1f5556ffb05fcfd2e722458ad9a66bcb@6-u.h.filess.io:3307/FullStackToDoApp_knownpair"
 engine = create_engine(DB_URL, echo=True)
 
 

@@ -1,18 +1,18 @@
 version: '3'
 services:
-  demo-app:
+  app:
     build: .
     volumes:
       - .dockervenv:/src/.venv
       - .:/src
     ports:
-      - 8000:8000  # connect host port 8000 to docker port 8000
+      - 8080:8080  # connect host port 8000 to docker port 8000
   db:
     image: mysql:8.0
     platform: linux/x86_64  # necessary if M1 Mac
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'  # make root account without password
-      MYSQL_DATABASE: 'demo'  # set 'demo' as default database
+      MYSQL_DATABASE: 'database'  # set 'demo' as default database
       TZ: 'Asia/Tokyo'  # set timezone as Japan Time
     volumes:
       - mysql_data:/var/lib/mysql

@@ -1,0 +1,7 @@
+# flyctl launch added from .dockervenv/.gitignore
+# created by virtualenv automatically
+.dockervenv/**/*
+
+# flyctl launch added from .dockervenv/lib/python3.11/site-packages/aiomysql/.gitignore
+.dockervenv/lib/python3.11/site-packages/aiomysql/_scm_version.py
+fly.toml

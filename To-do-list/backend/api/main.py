@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from backend.api.routers import task, done
+from api.routers import task, done, user, healthcheck
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,7 +10,11 @@ origins = [
     "http://localhost",
     "http://localhost:8000",
     "http://localhost:8080",
-    "https://example.org"
+    "http://localhost:8080/*",
+    "http://0.0.0.0:8080",
+    "http://0.0.0.0:8000",
+    "https://example.org",
+    "https://tatz884.github.io"
 ]
 
 app.add_middleware(
@@ -23,4 +27,6 @@ app.add_middleware(
 
 
 app.include_router(task.router)
-app.include_router(done.router)
+app.include_router(user.router)
+app.include_router(healthcheck.router)
+# app.include_router(done.router)
