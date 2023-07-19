@@ -1,4 +1,4 @@
-let rootUrl = "https://fs-todo.fly.dev/";
+let rootUrl = "http://localhost:8080/"; // http://localhost:8080/ or http://fs-todo.fly.dev/
 const unordList = document.querySelector("ul");
 const input = document.querySelector("input");
 const addBtn = document.querySelector("#add");
@@ -185,15 +185,14 @@ function initializeDisplay() {
 }
 
 async function createUser(userkey) {
-    createUrl = rootUrl + `users`
+    createUrl = rootUrl + `users/` + userkey
+    console.log(createUrl)
     const response = await fetch(createUrl, {
         method: 'POST', 
         headers: {
-          'Content-Type': 'application/json',
-          "user_key": userkey
+          'Content-Type': 'application/json'
           // 'Authorization': 'Bearer your-token' (if needed)
-        },
-        body: JSON.stringify(data) 
+        }
       });
       return response.json(); 
 }
