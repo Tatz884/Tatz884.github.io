@@ -25,12 +25,12 @@ router = APIRouter()
 #     return await db_user  ##somehow this 'await' expression does not work
 
 # create an user data
-@router.post("/users", response_model=user_schema.UserCreate)
-async def create_user(user: user_schema.UserCreate, db: AsyncSession = Depends(get_db)):
-    # db_user = user_crud.get_user_by_key(db, user_key=user.key)
-    # if db_user:
-    #     raise HTTPException(status_code=400, detail="User already existed")
-    return await user_crud.create_user(db=db, user_create=user)
+@router.post("/users/{user_key}", response_model=user_schema.UserCreate)
+async def create_user(user_key: str, db: AsyncSession = Depends(get_db)):
+    db_user = await user_crud.get_user_by_key(db, user_key=user_key)
+    if db_user:
+        raise HTTPException(status_code=400, detail="User already existed")
+    return await user_crud.create_user(db=db, user_key=user_key)
 
 # delete a user by key
 @router.delete("/users/{user_key}", response_model= None)
