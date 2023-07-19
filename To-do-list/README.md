@@ -2,7 +2,7 @@
 # Full Stack To-do List App
 **[Live app is here](https://tatz884.github.io/To-do-list/todo-list.html)**
 ## Purposes of this project
-I made this simple to-do app that works on the web, in order to learn commonly used technologies that span across frontend, backend, database and operation.
+I made this simple to-do app that works on the web, in order to learn commonly used technologies that span across frontend and backend.
 
 ## App features
 You can type tasks in the form and click "Add item" button.
