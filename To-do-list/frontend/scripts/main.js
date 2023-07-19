@@ -172,9 +172,7 @@ function clearAllDisplayedTasks() {
     }
 }
 
-function displayTasks() {
-    // display all tasks currently stored in the web Storage API
-    // clean all displayed tasks:
+async function displayTasks() {
     
     clearAllDisplayedTasks()
 
@@ -192,7 +190,7 @@ function displayTasks() {
 
 }
 
-function initializeDisplay() {
+async function initializeDisplay() {
     if (localStorage.getItem("userkey") === null) {
         localStorage.setItem("userkey", makeUserKey(16))
         userkey = localStorage.getItem("userkey")
