@@ -1,4 +1,4 @@
-let rootUrl = "http://localhost:8080/"; // http://localhost:8080/ or http://fs-todo.fly.dev/
+let rootUrl = "http://fs-todo.fly.dev/"; // http://localhost:8080/ or http://fs-todo.fly.dev/
 const unordList = document.querySelector("ul");
 const input = document.querySelector("input");
 const addBtn = document.querySelector("#add");

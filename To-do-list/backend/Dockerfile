@@ -4,15 +4,8 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /src
 
-# pinstall poetry using pip
-RUN pip install poetry
+COPY . ./
 
-# copy poetry files
-COPY pyproject.toml* poetry.lock* ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-# install library using poetry (if pyproject.toml exists)
-RUN poetry config virtualenvs.in-project true
-RUN if [ -f pyproject.toml ]; then poetry install --no-root; fi
-
-# run uvicorn server
-ENTRYPOINT ["poetry", "run", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
