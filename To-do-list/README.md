@@ -15,7 +15,7 @@ I learned the following technologies:
 - Frontend: HTML, CSS, Tailwind CSS, JavaScript
 - Backend: Python, FastAPI, SQLAlchemy
 - Database: MySQL
-- Others: Github, Docker, Fly.io
+- Others: Github, Docker, Fly.io, Ubuntu, VSCode
 
 ## Future directions
 
