@@ -14,13 +14,7 @@ addBtn.addEventListener("click", () => {
     errorText.className = "";
     const currText = input.value
     if (validateInput()) {
-        createData(url = baseUrl, data = {"title":`${currText}`})
-            .then(data => {
-                showCreatedData(data);
-            })
-            .catch(error => {
-                console.error(`Could not add a task: ${error}`)
-            });
+        createData({"title":`${currText}`})
     } else {
         showError();
     }
@@ -76,7 +70,38 @@ function showError() {
 //     return response.json(); 
 //   }
 
-async function createData(url = baseUrl, data = {"title":`buy clothing`}) {
+async function createData(data = {"title":`buy clothing`}) {
+    const listItem = document.createElement("div");
+    const span = document.createElement("span");
+    const doneBtn = document.createElement("button");
+    listItem.classList.add("flex", "flex-row", "w-full");
+    doneBtn.classList.add("p-0", "m-1", "border-2", "border-teal-300", "text-teal-600", "rounded", "justify-self-end", "w-12");
+    doneBtn.classList.add("hover:text-white", "hover:bg-teal-400", "active:bg-teal-600", "focus:ring", "focus:ring-teal-300");
+    span.classList.add("flex-grow", "m-1");
+    listItem.appendChild(span);
+    listItem.appendChild(doneBtn);
+    span.textContent = data.title;
+    doneBtn.textContent = 'Done';
+    unordList.appendChild(listItem);
+    postDataOnDB(baseUrl, data)
+        .then(task => {
+            doneBtn.addEventListener("click", () => {
+                deleteTask(baseUrl, task.id)
+                    .then(console.log(`ID ${task.id} : \"${task.title}\" was successfully deleted`))
+                    .then(listItem.remove())
+                    .catch(error => {
+                        console.error(`Could not delete a task of ${task.id} : ${task.title} - ${error}`)
+                    })
+            })
+            }   
+        )
+        .catch(error => {
+            console.error(`Could not add a task: ${error}`)
+            listItem.remove()
+        });
+}
+
+async function postDataOnDB(url = baseUrl, data = {"title":`buy clothing`}) {
     const response = await fetch(url, {
       method: 'POST', 
       headers: {
@@ -114,9 +139,10 @@ async function deleteTask(baseUrl = baseUrl, taskId) {
   }
 
 
+
 // below are code for changing display
 
-function showCreatedData(task = data) {
+async function showCreatedData(task = data) {
     const listItem = document.createElement("div");
     const span = document.createElement("span");
     const doneBtn = document.createElement("button");
@@ -137,7 +163,7 @@ function showCreatedData(task = data) {
                 console.error(`Could not delete a task of ${task.id} : ${task.title} - ${error}`)
             })
     })
-    console.log(`ID ${task.id} : \"${task.title}\" was successfully added`)
+    
 }
 
 function clearAllDisplayedTasks() {
