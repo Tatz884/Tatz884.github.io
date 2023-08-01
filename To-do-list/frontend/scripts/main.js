@@ -178,7 +178,7 @@ async function displayTasks() {
 
     // removeDuplicates();
     // removeEmptyTask();
-    listTasks()
+    await listTasks()
         .then((tasks) => {
             console.log(tasks)
             if (tasks.length != 0) {
