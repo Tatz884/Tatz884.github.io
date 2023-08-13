@@ -1,3 +1,8 @@
+html {
+    box-sizing:border-box;
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -6,20 +11,32 @@ body {
     background-color: #0e0e0e;
 }
 
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
 header {
-    display: flex;
+    display: grid;
+    grid-template:
+        "logo logo menu" 40px / 1fr 1fr 1fr;
     justify-content: space-between;
-    height: 30px;
+    height: 40px;
     align-items: center;
-    padding: 20px 40px;
     background-color: #1f1f1f;
     box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s;
 }
 
 header .logo-name {
+    grid-area: logo;
+    gap: 10px;
+    justify-self: left;
+    margin-left: 30px;
     display: flex;
     justify-content: space-between;
-    gap: 10px
+
 }
 
 header img {
@@ -32,39 +49,102 @@ header h1 {
 }
 
 header nav {
-    flex: 1;
+    grid-area: menu;
     display: flex;
     justify-content: end;
-    gap: 0px
+    margin-right: 30px;
+    gap: 30px;
 }
 
 header nav a {
-    margin-left: 20px;
+    display: inline;
     text-decoration: none;
     color: #ffffff;
     font-size: 16px;
-    transition: color 0.3s ease;
 }
 
 header nav a:hover {
     color: #007bff;
 }
 
-header .contact button {
+header .menu-button {
+    justify-self: right;
+    margin-right: 30px;
     background-color: #1f1f1f;
-    padding: 5px 20px 5px 20px;
-    border: 0.2px solid;
-    margin-left: 20px;
-    text-decoration: none;
+    padding: 5px 0px 5px 0px;
     color: #ffffff;
     font-size: 16px;
+    border: 0.2px solid;
     transition: color 0.3s ease;
     border-radius: 4px;
+    text-decoration: none;
+    display: none;
+    overflow: hidden;
 }
 
-header .contact button:hover {
+header .menu-button:hover {
     color: #007bff;
 }
+
+
+@media (max-width: 700px) {
+
+    header {
+        grid-template:
+            "logo menubutton" 40px / 2fr 1fr;
+    }
+
+    header nav {
+        display: none;
+        margin-right: 0px;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: all 0.5s;
+    }
+
+    header .menu-button {
+        grid-area: menubutton;
+        width: 70%;
+        max-width: 100px;
+        display: block;
+        overflow: hidden;
+    }
+    
+    header[aria-expanded="true"] {
+        height: 80px;
+        grid-template:
+            "logo menubutton" 40px
+            "menu menu" 40px / 2fr 1fr;
+    }
+
+    header[aria-expanded="true"] nav {
+        display: flex;
+        max-height: 500px;
+        justify-content: space-around;
+    }
+
+    header[aria-expanded="true"] nav.active {
+        opacity: 1;
+        display: flex;
+        max-height: 500px;
+        justify-content: space-around;
+    }
+
+    [aria-expanded="false"] .close {
+        display: none;
+    }
+
+    [aria-expanded="true"] .close {
+        display: inline-block;
+    }
+
+    [aria-expanded="true"] .open {
+        display: none;
+    }
+
+}
+
 
 /* main */
 .hero-container {
@@ -83,8 +163,8 @@ header .contact button:hover {
     .hero-container {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
-        height:600px;
-        padding: 30px
+        height:550px;
+        padding: 20px
     }
 
     .hero-image {
@@ -94,10 +174,9 @@ header .contact button:hover {
 
 .hero-text {
     display: grid;
-    grid-template-rows: 50px 100px 50px 50px;
+    grid-template-rows: 50px 100px 50px 30px;
     gap: 30px;
     overflow: hidden;
-    padding: 30px;
     justify-content: center;
     align-content: center;
     align-items: center;
@@ -129,6 +208,12 @@ header .contact button:hover {
         grid-template-rows: 30px 50px 30px 30px;
         order: 1; /* after hero image */
     }
+
+    .hero-text h5 {
+        margin-top: 0px;
+        margin-bottom:0px;
+    }
+    
 }
 
 .hero-text p {
@@ -173,6 +258,7 @@ header .contact button:hover {
     .hero-image {
         margin-left:40px;
         align-self:right;
+        width: 300px
     }
 }
 
@@ -180,7 +266,7 @@ header .contact button:hover {
 
 
 #portfolio {
-    padding: 50px 0;
+    padding: 30px 0;
     background-color: #FDF0E9;
 }
 
@@ -279,7 +365,7 @@ header .contact button:hover {
 /* contact */
 
 #contact {
-    padding: 50px 0;
+    padding: 30px 0;
     background-color: #28293E;
 }
 
@@ -325,7 +411,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
+    padding: 20px 20px;
     background-color: #1f1f1f;
     color: #ffffff;
 }
