@@ -25,3 +25,7 @@ The following features will be implemented.
 1. Better UI
 2. Security
 3. Data analysis and visualization, so that users can view frequently used words in tasks, task completion time, etc
+
+## Credit
+
+The backend logic of this app largely relies on [this FastAPI tutorial (in Japanese)](https://zenn.dev/sh0nk/books/537bb028709ab9), with the modifications to adapt to the frontend logic that I made.
