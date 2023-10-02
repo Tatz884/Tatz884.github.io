@@ -19,7 +19,7 @@ I learned the following technologies:
 
 ## Future directions
 
-This app is still to be updated, and likely needs an overhaul since I could not use the most of docker-compose very well. For the further details, see [this issue](https://github.com/Tatz884/Tatz884.github.io/issues/4)
+This app is still to be updated, and likely needs an overhaul since I could not use the most of docker-compose very well. For the further details, see [this issue](https://github.com/Tatz884/Tatz884.github.io/issues/4).
 
 The following features will be implemented.
 1. Better UI
