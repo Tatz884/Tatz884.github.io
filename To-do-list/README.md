@@ -19,7 +19,7 @@ I learned the following technologies:
 
 ## Future directions
 
-This app is still to be updated.
+This app is still to be updated, and likely needs an overhaul since I could not use the most of Docker very well.
 
 The following features will be implemented.
 1. Better UI
@@ -28,4 +28,4 @@ The following features will be implemented.
 
 ## Credit
 
-The backend logic of this app largely relies on [this FastAPI tutorial (in Japanese)](https://zenn.dev/sh0nk/books/537bb028709ab9), with the modifications to adapt to the frontend logic that I made.
+The backend logic of this app is made referencing [this FastAPI tutorial (in Japanese)](https://zenn.dev/sh0nk/books/537bb028709ab9).
